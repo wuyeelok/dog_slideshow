@@ -1,1 +1,1 @@
-alert("Hello I am here! main.js")
+alert("Hello javascript file is main.js and css is in style.css")
