@@ -54,8 +54,8 @@ function createSlideshow(images) {
     clearInterval(timer)
     clearTimeout(deleteFirstPhotoDelay)
 
-
-    document.getElementById("app__slideshow").innerHTML = `
+    if (images.length > 1) {
+        document.getElementById("app__slideshow").innerHTML = `
         <div
         class="app__slide"
         style="
@@ -73,8 +73,31 @@ function createSlideshow(images) {
         </div>
     `
 
-    currentPos += 2
-    timer = setInterval(nextSlide, 3000)
+        currentPos += 2
+        if (images.length == 2) {
+            // if there are only 2 images, reset currentPos to zero
+
+            currentPos = 0
+        }
+
+        timer = setInterval(nextSlide, 3000)
+    } else {
+        // if there is only 1 image
+
+        document.getElementById("app__slideshow").innerHTML = `
+        <div
+        class="app__slide"
+        style="
+            background-image: url('${images[0]}');
+        "
+        >
+        </div>
+
+        <div class="app__slide">
+        </div>
+    `
+    }
+
 
     function nextSlide() {
         document.getElementById("app__slideshow").insertAdjacentHTML("beforeend", `
