@@ -24,7 +24,7 @@ function createBreedList(breadList) {
 async function loadByBreed(breed) {
     const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`)
     const data = await response.json()
-    document.getElementById("breed__image").innerHTML = `
+    document.getElementsByClassName("app__slide")[0].innerHTML = `
         ${data.message.map(function (imgUrl) {
         return `<img src="${imgUrl}" alt="dog image" />`
     }).join('')}
