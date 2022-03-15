@@ -2,7 +2,7 @@
 async function start() {
     const response = await fetch("https://dog.ceo/api/breeds/list/all")
     const data = await response.json()
-    // console.log(data)
+    console.log(data.message)
     createBreedList(data.message)
 }
 
@@ -13,9 +13,9 @@ function createBreedList(breadList) {
     document.getElementById("breed").innerHTML = `
             <select>
                 <option disabled selected>Choose a dog breed</option>
-                <option>Corgi</option>
-                <option>Boxer</option>
-                <option>Bulldog</option>
+                ${Object.keys(breadList).map(function (breed) {
+        return `<option>${breed}</option>`
+    }).join('')}
             </select>
     `
 }
