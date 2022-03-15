@@ -21,12 +21,7 @@ function createBreedList(breadList) {
 }
 
 
-function loadByBreed(breed) {
-    //console.log(`breed : ${breed}`)
-    fetchBreedImage(breed)
-}
-
-async function fetchBreedImage(breed) {
+async function loadByBreed(breed) {
     const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`)
     const data = await response.json()
     document.getElementById("breed__image").innerHTML = `
@@ -35,3 +30,4 @@ async function fetchBreedImage(breed) {
     }).join('')}
     `
 }
+
