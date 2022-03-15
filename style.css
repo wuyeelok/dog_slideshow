@@ -1,1 +1,1 @@
-h1{color:#ccc;margin-bottom:.5rem}
+h1{color:#ccc;margin-bottom:.5rem}#breed__image{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr))}#breed__image img{width:100%;max-width:300px}

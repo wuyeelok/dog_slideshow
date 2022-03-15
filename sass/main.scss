@@ -2,3 +2,15 @@ h1 {
     color: #ccc;
     margin-bottom: 0.5rem;
 }
+
+#breed {
+    &__image {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+        img {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+}
