@@ -3,10 +3,21 @@ let deleteFirstPhotoDelay
 
 // New way of writing fetch
 async function start() {
-    const response = await fetch("https://dog.ceo/api/breeds/list/all")
-    const data = await response.json()
-    // console.log(data.message)
-    createBreedList(data.message)
+    try {
+        const response = await fetch("https://dog.ceo/api/breeds/list/all")
+        const data = await response.json()
+        // console.log(data.message)
+        createBreedList(data.message)
+    } catch (e) {
+        console.log("There was a problem fetching the breed list.")
+
+        document.getElementById("breed").innerHTML = `
+        
+            <p class="error-msg  error-msg--red">Dogs API is currently DOWN!</p>
+        
+        `
+    }
+
 }
 
 start()
@@ -25,25 +36,21 @@ function createBreedList(breadList) {
 
 
 async function loadByBreed(breed) {
-    const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`)
-    const data = await response.json()
-    // console.log(data)
-    createSlideshow(data.message)
 
-    const myStr = `
-    <div
-                    class="app__slide"
-                    style="
-                        background-image: url('https://images.dog.ceo/breeds/affenpinscher/n02110627_10147.jpg');
-                    "
-                ></div>
-    `
+    try {
+        const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`)
+        const data = await response.json()
+        // console.log(data)
+        createSlideshow(data.message)
+    } catch (e) {
+        console.log("Problem fetching the breed images")
 
-    // document.getElementsByClassName("app__slide")[0].innerHTML = `
-    //     ${data.message.map(function (imgUrl) {
-    //     return `<img src="${imgUrl}" alt="dog image" />`
-    // }).join('')}
-    // `
+        document.getElementById("app__slideshow").innerHTML = `
+        
+            <p class="error-msg  error-msg--red">Image Not FOUND!</p>
+        
+        `
+    }
 }
 
 function createSlideshow(images) {
