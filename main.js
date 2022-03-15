@@ -1,1 +1,7 @@
-alert("Hello javascript file is main.js and css is in style.css")
+// Old way to fetch external data
+fetch("https://dog.ceo/api/breeds/list/all")
+    .then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log(data);
+    }) 
