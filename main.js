@@ -10,5 +10,12 @@ start()
 
 
 function createBreedList(breadList) {
-
+    document.getElementById("breed").innerHTML = `
+            <select>
+                <option disabled selected>Choose a dog breed</option>
+                <option>Corgi</option>
+                <option>Boxer</option>
+                <option>Bulldog</option>
+            </select>
+    `
 }
