@@ -1,3 +1,6 @@
+let timer
+let deleteFirstPhotoDelay
+
 // New way of writing fetch
 async function start() {
     const response = await fetch("https://dog.ceo/api/breeds/list/all")
@@ -46,14 +49,53 @@ async function loadByBreed(breed) {
 function createSlideshow(images) {
     // console.log(images)
 
+    let currentPos = 0
+
+    clearInterval(timer)
+    clearTimeout(deleteFirstPhotoDelay)
+
+
     document.getElementById("app__slideshow").innerHTML = `
-    <div
-    class="app__slide"
-    style="
-        background-image: url('${images[0]}');
-    "
-    >
-    </div>
+        <div
+        class="app__slide"
+        style="
+            background-image: url('${images[0]}');
+        "
+        >
+        </div>
+
+        <div
+        class="app__slide"
+        style="
+            background-image: url('${images[1]}');
+        "
+        >
+        </div>
     `
+
+    currentPos += 2
+    timer = setInterval(nextSlide, 3000)
+
+    function nextSlide() {
+        document.getElementById("app__slideshow").insertAdjacentHTML("beforeend", `
+        <div
+        class="app__slide"
+        style="
+            background-image: url('${images[currentPos]}');
+        "
+        >
+        </div>
+        `)
+
+        deleteFirstPhotoDelay = setTimeout(function () {
+            document.querySelector(".app__slide").remove()
+        }, 1000)
+
+        if (currentPos + 1 >= images.length) {
+            currentPos = 0
+        } else {
+            currentPos++
+        }
+    }
 }
 
