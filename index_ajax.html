@@ -45,7 +45,11 @@
                         function (response, status, xhr) {
                             console.log(`Response: ${response}`);
                             console.log(`Status: ${status}`);
-                            console.log(`xhr status: ${xhr.status}`);
+                            console.log(`xhr status text: ${xhr.statusText}`);
+
+                            if (status == "error") {
+                                $("#result").text("Error during fetch data!");
+                            }
                         }
                     );
                 });
