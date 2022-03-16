@@ -35,6 +35,9 @@
 
             <button id="myBut2">Fetch data Using JQuery Get</button>
             <div id="result2"></div>
+
+            <button id="myBut3">Fetch data Using JQuery getJSON</button>
+            <div id="result3"></div>
         </div>
 
         <script>
@@ -66,6 +69,22 @@
                             console.log(`status: ${status}`);
                             console.log(`xhr: ${xhr}`);
                             $("#result2").text(data.message);
+                        }
+                    );
+                });
+
+                $("#myBut3").click(function () {
+                    $.getJSON(
+                        "https://dog.ceo/api/breeds/image/random",
+                        function (data) {
+                            console.log(`Datais: ${data}`);
+
+                            $.each(data, function (name, value) {
+                                // loop data object attribute
+                                $("#result3").append(
+                                    `<p>object arrtibute name: ${name}, arrtibute value: ${value}</p>`
+                                );
+                            });
                         }
                     );
                 });
