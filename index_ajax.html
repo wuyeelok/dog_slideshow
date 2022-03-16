@@ -29,10 +29,24 @@
         <header>
             <h1>jQuery Crash Course | Ajax</h1>
         </header>
-        <div id="container"></div>
+        <div id="container">
+            <div id="result"></div>
+        </div>
 
         <script>
-            $(document).ready(function () {});
+            $(document).ready(function () {
+                // Test jQuery
+                $("h1").css("color", "red");
+
+                $("#result").load(
+                    "https://dog.ceo/api/breeds/list/all",
+                    function (response, status, xhr) {
+                        console.log(`Response: ${response}`);
+                        console.log(`Status: ${status}`);
+                        console.log(`xhr: ${xhr}`);
+                    }
+                );
+            });
         </script>
     </body>
 </html>
