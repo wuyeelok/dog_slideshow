@@ -30,8 +30,8 @@
             <h1>jQuery Crash Course | Ajax</h1>
         </header>
         <div id="container">
-            <button id="myBut">Fetch data</button>
-            <div id="result"></div>
+            <button id="myBut1">Fetch data Using JQuery Load</button>
+            <div id="result1"></div>
         </div>
 
         <script>
@@ -39,8 +39,8 @@
                 // Test jQuery
                 $("h1").css("color", "red");
 
-                $("#myBut").click(function () {
-                    $("#result").load(
+                $("#myBut1").click(function () {
+                    $("#result1").load(
                         "https://dog.ceo/api/breeds/image/random",
                         function (response, status, xhr) {
                             console.log(`Response: ${response}`);
@@ -48,7 +48,7 @@
                             console.log(`xhr status text: ${xhr.statusText}`);
 
                             if (status == "error") {
-                                $("#result").text("Error during fetch data!");
+                                $("#result1").text("Error during fetch data!");
                             }
                         }
                     );
