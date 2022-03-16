@@ -38,6 +38,9 @@
 
             <button id="myBut3">Fetch data Using JQuery getJSON</button>
             <div id="result3"></div>
+
+            <button id="myBut4">Fetch data Using JQuery ajax</button>
+            <div id="result4"></div>
         </div>
 
         <script>
@@ -87,6 +90,36 @@
                             });
                         }
                     );
+                });
+
+                $("#myBut4").click(function () {
+                    const startTime = performance.now();
+                    let stopTime;
+
+                    $.ajax({
+                        method: "GET",
+                        url: "https://dog.ceo/api/breeds/image/random",
+                        dataType: "json",
+                    })
+                        .done(function (data) {
+                            console.log(`data.message: ${data.message}`);
+
+                            $("#result4").html(`
+                            <img alt="dog image" src="${data.message}">
+                        `);
+                        })
+                        .fail(function (xhr, status, error) {
+                            const errorMsg = `${xhr.status}: ${xhr.statusText}`;
+                            console.log(errorMsg);
+                            $("#result4").text("Error during fetch data!");
+                        })
+                        .always(function () {
+                            stopTime = performance.now();
+
+                            console.log(
+                                `Execution time: ${stopTime - startTime} ms`
+                            );
+                        });
                 });
             });
         </script>
