@@ -30,6 +30,7 @@
             <h1>jQuery Crash Course | Ajax</h1>
         </header>
         <div id="container">
+            <button id="myBut">Fetch data</button>
             <div id="result"></div>
         </div>
 
@@ -38,14 +39,16 @@
                 // Test jQuery
                 $("h1").css("color", "red");
 
-                $("#result").load(
-                    "https://dog.ceo/api/breeds/list/all",
-                    function (response, status, xhr) {
-                        console.log(`Response: ${response}`);
-                        console.log(`Status: ${status}`);
-                        console.log(`xhr: ${xhr}`);
-                    }
-                );
+                $("#myBut").click(function () {
+                    $("#result").load(
+                        "https://dog.ceo/api/breeds/image/random",
+                        function (response, status, xhr) {
+                            console.log(`Response: ${response}`);
+                            console.log(`Status: ${status}`);
+                            console.log(`xhr status: ${xhr.status}`);
+                        }
+                    );
+                });
             });
         </script>
     </body>
