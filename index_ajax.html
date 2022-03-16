@@ -32,6 +32,9 @@
         <div id="container">
             <button id="myBut1">Fetch data Using JQuery Load</button>
             <div id="result1"></div>
+
+            <button id="myBut2">Fetch data Using JQuery Get</button>
+            <div id="result2"></div>
         </div>
 
         <script>
@@ -50,6 +53,19 @@
                             if (status == "error") {
                                 $("#result1").text("Error during fetch data!");
                             }
+                        }
+                    );
+                });
+
+                $("#myBut2").click(function () {
+                    // Will only works if success, no failure handling
+                    $.get(
+                        "https://dog.ceo/api/breeds/image/random",
+                        function (data, status, xhr) {
+                            console.log(`data: ${data}`);
+                            console.log(`status: ${status}`);
+                            console.log(`xhr: ${xhr}`);
+                            $("#result2").text(data.message);
                         }
                     );
                 });
