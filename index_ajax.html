@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery Crash Course | Ajax</title>
+        <script src="./jquery-3.6.0.min.js"></script>
+        <style>
+            body {
+                font-size: 17px;
+                font-family: arial;
+                background: #f4f4f4;
+                line-height: 1.5em;
+            }
+            header {
+                background: #333;
+                color: #fff;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 4px #000 solid;
+                margin-bottom: 10px;
+            }
+            #container {
+                width: 90%;
+                margin: auto;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>jQuery Crash Course | Ajax</h1>
+        </header>
+        <div id="container">
+            <h3>Add Post</h3>
+            <form
+                id="postForm"
+                action="https://jsonplaceholder.typicode.com/posts"
+            >
+                <input type="text" id="title" placeholder="Title" />
+                <br />
+                <textarea
+                    id="body"
+                    cols="30"
+                    rows="10"
+                    placeholder="Body"
+                ></textarea>
+                <br />
+                <input type="submit" value="Submit" />
+            </form>
+
+            <button id="myBut1">Fetch data Using JQuery Load</button>
+            <div id="result1"></div>
+
+            <button id="myBut2">Fetch data Using JQuery Get</button>
+            <div id="result2"></div>
+
+            <button id="myBut3">Fetch data Using JQuery getJSON</button>
+            <div id="result3"></div>
+
+            <button id="myBut4">Fetch data Using JQuery ajax</button>
+            <div id="result4"></div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                // Test jQuery
+                $("h1").css("color", "red");
+
+                $("#postForm").submit(function (e) {
+                    e.preventDefault();
+
+                    let title = $("#title").val();
+                    let body = $("#body").val();
+                    let url = $(this).attr("action");
+
+                    $.post(url, { title: title, body: body }).done(function (
+                        data
+                    ) {
+                        console.log(`Post saved`);
+                        console.log(data);
+                    });
+                });
+
+                $("#myBut1").click(function () {
+                    $("#result1").load(
+                        "https://dog.ceo/api/breeds/image/random",
+                        function (response, status, xhr) {
+                            console.log(`Response: ${response}`);
+                            console.log(`Status: ${status}`);
+                            console.log(`xhr status text: ${xhr.statusText}`);
+
+                            if (status == "error") {
+                                $("#result1").text("Error during fetch data!");
+                            }
+                        }
+                    );
+                });
+
+                $("#myBut2").click(function () {
+                    // Will only works if success, no failure handling
+                    $.get(
+                        "https://dog.ceo/api/breeds/image/random",
+                        function (data, status, xhr) {
+                            console.log(`data: ${data}`);
+                            console.log(`status: ${status}`);
+                            console.log(`xhr: ${xhr}`);
+                            $("#result2").text(data.message);
+                        }
+                    );
+                });
+
+                $("#myBut3").click(function () {
+                    $.getJSON(
+                        "https://dog.ceo/api/breeds/image/random",
+                        function (data) {
+                            console.log(`Datais: ${data}`);
+
+                            $.each(data, function (name, value) {
+                                // loop data object attribute
+                                $("#result3").append(
+                                    `<p>object arrtibute name: ${name}, arrtibute value: ${value}</p>`
+                                );
+                            });
+                        }
+                    );
+                });
+
+                $("#myBut4").click(function () {
+                    const startTime = performance.now();
+                    let stopTime;
+
+                    $.ajax({
+                        method: "GET",
+                        url: "https://dog.ceo/api/breeds/image/random",
+                        dataType: "json",
+                    })
+                        .done(function (data) {
+                            console.log(`data.message: ${data.message}`);
+
+                            $("#result4").html(`
+                            <img alt="dog image" src="${data.message}">
+                        `);
+                        })
+                        .fail(function (xhr, status, error) {
+                            const errorMsg = `${xhr.status}: ${xhr.statusText}`;
+                            console.log(errorMsg);
+                            $("#result4").text("Error during fetch data!");
+                        })
+                        .always(function () {
+                            stopTime = performance.now();
+
+                            console.log(
+                                `Execution time: ${stopTime - startTime} ms`
+                            );
+                        });
+                });
+            });
+        </script>
+    </body>
+</html>
