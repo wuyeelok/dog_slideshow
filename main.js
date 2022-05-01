@@ -1,3 +1,5 @@
+import { Breed } from "./js_modules/breed.js";
+
 let timer;
 let deleteFirstPhotoDelay;
 
@@ -6,7 +8,7 @@ async function start() {
   try {
     const response = await fetch("https://dog.ceo/api/breeds/list/all");
     const data = await response.json();
-    // console.log(data.message)
+    // console.log(data.message);
     createBreedList(data.message);
   } catch (e) {
     console.log("There was a problem fetching the breed list.");
@@ -27,14 +29,15 @@ function createBreedList(breadList) {
                 <option disabled selected>Choose a dog breed</option>
                 ${Object.keys(breadList)
                   .map(function (breed) {
-                    return `<option>${breed}</option>`;
+                    const tempBreed = new Breed(breed);
+                    return `<option>${tempBreed.getBreedName()}</option>`;
                   })
                   .join("")}
             </select>
     `;
 }
 
-async function loadByBreed(breed) {
+window.loadByBreed = async function loadByBreed(breed) {
   try {
     const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`);
     const data = await response.json();
@@ -49,7 +52,7 @@ async function loadByBreed(breed) {
         
         `;
   }
-}
+};
 
 function createSlideshow(images) {
   // console.log(images)
