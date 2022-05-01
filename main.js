@@ -1,13 +1,16 @@
+import { Breed } from "./js_modules/breed.js";
+
 let timer;
 let deleteFirstPhotoDelay;
+const breedSelectEle = document.querySelector("#breed select");
 
 // New way of writing fetch
 async function start() {
   try {
     const response = await fetch("https://dog.ceo/api/breeds/list/all");
     const data = await response.json();
-    // console.log(data.message)
-    createBreedList(data.message);
+    // console.log(data.message);
+    createBreedListOption(data.message);
   } catch (e) {
     console.log("There was a problem fetching the breed list.");
 
@@ -21,16 +24,15 @@ async function start() {
 
 start();
 
-function createBreedList(breadList) {
-  document.getElementById("breed").innerHTML = `
-            <select onchange="loadByBreed(this.value)">
-                <option disabled selected>Choose a dog breed</option>
-                ${Object.keys(breadList)
-                  .map(function (breed) {
-                    return `<option>${breed}</option>`;
-                  })
-                  .join("")}
-            </select>
+function createBreedListOption(breadList) {
+  breedSelectEle.innerHTML = `
+    <option disabled selected>Choose a dog breed</option>
+      ${Object.keys(breadList)
+        .map(function (breed) {
+          const tempBreed = new Breed(breed);
+          return `<option>${tempBreed.getBreedName()}</option>`;
+        })
+        .join("")}
     `;
 }
 
@@ -50,6 +52,10 @@ async function loadByBreed(breed) {
         `;
   }
 }
+
+breedSelectEle.addEventListener("change", function () {
+  loadByBreed(this.value);
+});
 
 function createSlideshow(images) {
   // console.log(images)
